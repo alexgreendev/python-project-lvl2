@@ -1,4 +1,9 @@
-.DEFAULT_GOAL := build
+.DEFAULT_GOAL := default
+
+default:
+	make build
+	make publish
+	make package-install
 
 install:
 	poetry install
