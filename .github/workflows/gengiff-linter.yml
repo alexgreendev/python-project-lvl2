@@ -1,4 +1,4 @@
-name: gendiff-package
+name: gendiff-linter
 
 on:
   push:
