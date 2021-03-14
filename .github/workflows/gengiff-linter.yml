@@ -1,4 +1,4 @@
-name: gendiff package
+name: gendiff-package
 
 on:
   push:
@@ -26,6 +26,3 @@ jobs:
     - name: Run Lint
       run: |
         make lint
-    - name: Run Tests
-      run: |
-        make test
