@@ -1,4 +1,3 @@
-from collections import OrderedDict
 from enum import Enum
 from typing import Dict, Any, NamedTuple, List, Union
 
@@ -27,7 +26,7 @@ def build_tree(
     nodes = []
 
     all_keys = [*data2.keys(), *data1.keys()]
-    unique_keys = OrderedDict({key: None for key in all_keys}).keys()
+    unique_keys = {key: None for key in all_keys}.keys()
 
     node_type, key, value, value1, value2 = (None,) * 5
     for index, key in enumerate(unique_keys):
