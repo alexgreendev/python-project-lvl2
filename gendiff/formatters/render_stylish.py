@@ -1,8 +1,8 @@
 from typing import Optional, Union, TYPE_CHECKING
-from gendiff.diff.tree import DiffNodeTypeEnum
+from gendiff.tree import DiffNodeTypeEnum
 
 if TYPE_CHECKING:
-    from gendiff.diff.tree import DiffTree
+    from gendiff.tree import DiffTree
 
 
 def _value_to_str(data: Optional[Union[str, int, bool]]):
@@ -43,5 +43,5 @@ def _node_processing(node: 'DiffTree'):
         return f"  {node.key}: {value}"
 
 
-def render_stylish(tree: 'DiffTree'):
+def render_stylish(tree: 'DiffTree') -> str:
     return _node_processing(tree)
