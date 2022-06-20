@@ -8,4 +8,3 @@ def format_data(format_name: str, tree: DiffTree) -> str:
         return render_stylish(tree)
 
     raise ValueError(f'Unknown format: {format_name}')
-
