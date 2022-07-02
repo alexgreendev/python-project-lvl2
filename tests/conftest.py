@@ -6,7 +6,7 @@ FIXTURES_FOLDER = 'fixtures'
 
 
 @pytest.fixture(scope='function')
-def prepared_files(request):
+async def prepared_files(request):
     file1_name, file2_name, result_file_name = request.param
 
     fixtures_path = os.path.join(os.path.dirname(__file__), FIXTURES_FOLDER)
