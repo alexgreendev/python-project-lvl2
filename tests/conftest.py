@@ -1,4 +1,3 @@
-import asyncio
 import os
 
 import pytest
@@ -6,32 +5,15 @@ import pytest
 FIXTURES_FOLDER = 'fixtures'
 
 
-@pytest.fixture(scope='module')
-def event_loop():
-    loop = asyncio.get_event_loop_policy().new_event_loop()
-    yield loop
-    loop.close()
+@pytest.fixture(scope='function')
+def prepared_files(request):
+    file1_name, file2_name, result_file_name = request.param
 
+    fixtures_path = os.path.join(os.path.dirname(__file__), FIXTURES_FOLDER)
 
-@pytest.fixture(scope='session')
-def file1_json_path():
-    return os.path.join(os.path.dirname(__file__),
-                        FIXTURES_FOLDER, 'file1.json')
-
-
-@pytest.fixture(scope='session')
-def file2_json_path():
-    return os.path.join(os.path.dirname(__file__),
-                        FIXTURES_FOLDER, 'file2.json')
-
-
-@pytest.fixture(scope='session')
-def file1_yml_path():
-    return os.path.join(os.path.dirname(__file__),
-                        FIXTURES_FOLDER, 'file1.yml')
-
-
-@pytest.fixture(scope='session')
-def file2_yml_path():
-    return os.path.join(os.path.dirname(__file__),
-                        FIXTURES_FOLDER, 'file2.yml')
+    with open(os.path.join(fixtures_path, result_file_name)) as file:
+        return (
+            os.path.join(fixtures_path, file1_name),
+            os.path.join(fixtures_path, file2_name),
+            file.read(),
+        )

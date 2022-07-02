@@ -3,7 +3,7 @@ from typing import Dict
 
 from gendiff.formatter import format_data
 from gendiff.parser import parse
-from gendiff.tree import build_tree
+from gendiff import tree
 
 
 def check_files_extension_match(*files_paths) -> bool:
@@ -42,5 +42,5 @@ def generate_diff(
     data1 = get_data(file_path1)
     data2 = get_data(file_path2)
 
-    diff_tree = build_tree(data1, data2)
+    diff_tree = tree.build(data1, data2)
     return format_data(format_name, diff_tree)
