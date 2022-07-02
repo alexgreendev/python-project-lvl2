@@ -67,3 +67,27 @@ async def test_plain(
         file2_path,
         FormatNameEnum.plain,
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    argnames='prepared_files',
+    argvalues=[
+        [
+            'file1_nested.yml',
+            'file2_nested.yml',
+            'json_nested',
+        ],
+    ],
+    indirect=True,
+)
+async def test_json(
+    prepared_files,
+):
+    file1_path, file2_path, result_render = prepared_files
+
+    assert result_render == generate_diff(
+        file1_path,
+        file2_path,
+        FormatNameEnum.json,
+    )

@@ -1,7 +1,7 @@
 import os
 from typing import Dict
 
-from gendiff.formatter import format_data
+from gendiff.formatter import format_data, FormatNameEnum
 from gendiff.parser import parse
 from gendiff import tree
 
@@ -28,7 +28,7 @@ def get_data(file_path: str) -> Dict:
 def generate_diff(
         file_path1: str,
         file_path2: str,
-        format_name='stylish',
+        format_name: FormatNameEnum = FormatNameEnum.stylish,
 ) -> str:
     if not check_exists_files(file_path1, file_path2):
         raise FileNotFoundError(

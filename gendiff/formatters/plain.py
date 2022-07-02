@@ -34,35 +34,35 @@ def _node_processing(
     value1 = _value_to_str(node.value1)
     value2 = _value_to_str(node.value2)
 
-    if node.type == DiffNodeTypeEnum.root:
+    if node.type_node == DiffNodeTypeEnum.root:
         lines = map(
             lambda child: _node_processing(child),
             children,
         )
         return '\n'.join(filter(bool, lines))
 
-    elif node.type == DiffNodeTypeEnum.nested:
+    elif node.type_node == DiffNodeTypeEnum.nested:
         lines = map(
             lambda child: _node_processing(child, f"{property_path}."),
             children,
         )
         return '\n'.join(filter(bool, lines))
 
-    elif node.type == DiffNodeTypeEnum.inserted:
+    elif node.type_node == DiffNodeTypeEnum.inserted:
         return f"Property '{property_path}'" \
                f" was added with value: {value}"
 
-    elif node.type == DiffNodeTypeEnum.deleted:
+    elif node.type_node == DiffNodeTypeEnum.deleted:
         return f"Property '{property_path}' was removed"
 
-    elif node.type == DiffNodeTypeEnum.changed:
+    elif node.type_node == DiffNodeTypeEnum.changed:
         return f"Property '{property_path}' was updated." \
                f" From {value1} to {value2}"
 
-    elif node.type == DiffNodeTypeEnum.unchanged:
+    elif node.type_node == DiffNodeTypeEnum.unchanged:
         return
 
-    raise ValueError(f"Unknown type: {node.type}")
+    raise ValueError(f"Unknown type: {node.type_node}")
 
 
 def render(tree: 'DiffTree') -> str:

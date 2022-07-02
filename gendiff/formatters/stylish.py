@@ -42,33 +42,33 @@ def _node_processing(
 
     indent = build_indent(depth)
 
-    if node.type == DiffNodeTypeEnum.root:
+    if node.type_node == DiffNodeTypeEnum.root:
         lines = map(lambda child: _node_processing(child, depth + 1), children)
         result = '\n'.join(lines)
         return f'{{\n{result}\n}}'
 
-    elif node.type == DiffNodeTypeEnum.nested:
+    elif node.type_node == DiffNodeTypeEnum.nested:
         lines = map(lambda child: _node_processing(child, depth + 1), children)
         result = '\n'.join(lines)
         return f"{indent}  {node.key}: {{\n{result}\n{indent}  }}"
 
-    elif node.type == DiffNodeTypeEnum.inserted:
+    elif node.type_node == DiffNodeTypeEnum.inserted:
         return f"{indent}+ {node.key}: {value}"
 
-    elif node.type == DiffNodeTypeEnum.deleted:
+    elif node.type_node == DiffNodeTypeEnum.deleted:
         return f"{indent}- {node.key}: {value}"
 
-    elif node.type == DiffNodeTypeEnum.changed:
+    elif node.type_node == DiffNodeTypeEnum.changed:
         lines = [
             f"{indent}- {node.key}: {value1}",
             f"{indent}+ {node.key}: {value2}"
         ]
         return '\n'.join(lines)
 
-    elif node.type == DiffNodeTypeEnum.unchanged:
+    elif node.type_node == DiffNodeTypeEnum.unchanged:
         return f"{indent}  {node.key}: {value}"
 
-    raise ValueError(f"Unknown type: {node.type}")
+    raise ValueError(f"Unknown type: {node.type_node}")
 
 
 def render(tree: 'DiffTree') -> str:
