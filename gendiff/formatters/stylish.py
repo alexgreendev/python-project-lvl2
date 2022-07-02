@@ -71,5 +71,5 @@ def _node_processing(
     raise ValueError(f"Unknown type: {node.type}")
 
 
-def render_stylish(tree: 'DiffTree') -> str:
+def render(tree: 'DiffTree') -> str:
     return _node_processing(tree)

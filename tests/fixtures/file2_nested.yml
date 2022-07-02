@@ -1,5 +1,5 @@
 common:
-  follow: false
+  follow: False
   setting1: "Value 1"
   setting3: null
   setting4: "blah blah"
