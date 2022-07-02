@@ -34,7 +34,7 @@ def _value_to_str(
 def _node_processing(
     node: 'DiffTree',
     depth: int = 0,
-):
+) -> str:
     children = node.children
     value = _value_to_str(node.value, depth)
     value1 = _value_to_str(node.value1, depth)
@@ -47,25 +47,25 @@ def _node_processing(
         result = '\n'.join(lines)
         return f'{{\n{result}\n}}'
 
-    if node.type == DiffNodeTypeEnum.nested:
+    elif node.type == DiffNodeTypeEnum.nested:
         lines = map(lambda child: _node_processing(child, depth + 1), children)
         result = '\n'.join(lines)
         return f"{indent}  {node.key}: {{\n{result}\n{indent}  }}"
 
-    if node.type == DiffNodeTypeEnum.inserted:
+    elif node.type == DiffNodeTypeEnum.inserted:
         return f"{indent}+ {node.key}: {value}"
 
-    if node.type == DiffNodeTypeEnum.deleted:
+    elif node.type == DiffNodeTypeEnum.deleted:
         return f"{indent}- {node.key}: {value}"
 
-    if node.type == DiffNodeTypeEnum.changed:
+    elif node.type == DiffNodeTypeEnum.changed:
         lines = [
             f"{indent}- {node.key}: {value1}",
             f"{indent}+ {node.key}: {value2}"
         ]
         return '\n'.join(lines)
 
-    if node.type == DiffNodeTypeEnum.unchanged:
+    elif node.type == DiffNodeTypeEnum.unchanged:
         return f"{indent}  {node.key}: {value}"
 
     raise ValueError(f"Unknown type: {node.type}")
